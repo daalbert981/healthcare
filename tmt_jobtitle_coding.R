@@ -1,7 +1,12 @@
 ### Matching TMT titles
+library(tidyverse)
 
+dictionary_titles <- read.csv("Data/TMT_raw/title_abreviations.csv")
 df <- read.csv("Data/TMT_raw/test_data.csv")
-c.no <- 1
+
+df <- as.data.frame(df)
+c.no <- 8
+end.line <- length(colnames(df))
 ### Nursing
 nursing <- grepl("nurs", tolower(df[,c.no]))
 
@@ -69,7 +74,7 @@ df <- as.data.frame(cbind(df, nursing,clinical,medical_affairs,medical_officer,s
                           philanthropy,mission,quality,human,staff,people,marketing,client,commercial,pharma))
 glimpse(df)
 
-df[,3:40] <- apply(df[,3:40],2,function(x) ifelse(x==TRUE,1,0))
+df[,(end.line+1):(length(colnames(df)))] <- apply(df[,(end.line+1):(length(colnames(df)))],2,function(x) ifelse(x==TRUE,1,0))
 
 
 ### Coding of groups
